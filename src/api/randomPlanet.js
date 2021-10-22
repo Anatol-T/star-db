@@ -1,7 +1,7 @@
-import axios from '@/api/axios'
+import axios from "@/api/axios";
 
-const getPlanet = id => {
+const getPlanet = (id) => {
   return axios.get(`/planets/${id}/`);
 };
 
-export default {getPlanet}
+export default { getPlanet };

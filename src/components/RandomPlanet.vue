@@ -1,13 +1,9 @@
 <template>
-  <div class="max-h" >
+  <div class="max-h">
     <SdbLoading v-if="isLoading" />
-    <SdbErrorMessage v-if="error"/>
+    <SdbErrorMessage v-if="error" />
     <div v-if="randomPlanet" class="random-planet">
-      <img
-        className="planet-image"
-        :src="img"
-        alt="planet"
-      />
+      <img className="planet-image" :src="img" alt="planet" />
       <div>
         <h4>{{ randomPlanet.name }}</h4>
         <ul className="list-group list-group-flush">
@@ -43,8 +39,8 @@ export default {
   },
   data() {
     return {
-      id: 1
-    }
+      id: 1,
+    };
   },
   computed: {
     ...mapState({
@@ -53,16 +49,16 @@ export default {
       error: (state) => state.randomPlanet.error,
     }),
     img() {
-      return require(`../assets/${this.id}.jpg`)
-    }
+      return require(`../assets/${this.id}.jpg`);
+    },
   },
   mounted() {
     this.updatePlanet();
-    setInterval(this.updatePlanet, 10000)
+    setInterval(this.updatePlanet, 10000);
   },
   methods: {
     updatePlanet() {
-      this.id = Math.floor(Math.random()*17) + 2;
+      this.id = Math.floor(Math.random() * 17) + 2;
       this.$store.dispatch(actionTypes.getPlanet, { id: this.id });
     },
   },
