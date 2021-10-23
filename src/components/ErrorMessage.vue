@@ -6,13 +6,13 @@
 
 <script>
 export default {
-  name: 'SdbErrorMessage',
+  name: "SdbErrorMessage",
   props: {
     message: {
       type: String,
       required: false,
-      default: 'Something went wrong'
-    }
-  }
-}
+      default: "Something went wrong",
+    },
+  },
+};
 </script>

@@ -27,6 +27,7 @@ const mutations = {
   },
   [mutationTypes.getCharactersFailure](state) {
     state.isLoading = false;
+    state.error = true;
   },
 };
 
@@ -45,6 +46,7 @@ const actions = {
         })
         .catch(() => {
           context.commit(mutationTypes.getCharactersFailure);
+          //console.log(error.response.data)
         });
     });
   },
