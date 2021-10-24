@@ -27,6 +27,7 @@ const mutations = {
   },
   [mutationTypes.getPlanetFailure](state) {
     state.isLoading = false;
+    state.error = true;
   },
 };
 

@@ -4,18 +4,18 @@
       <h3>Planets:</h3>
       <SdbLoading v-if="isLoading" />
       <SdbErrorMessage v-if="error" />
-      <ul v-if="characters">
+      <ul v-if="planets">
         <li
-          v-for="(character, index) in characters"
+          v-for="(planet, index) in planets"
           :key="index"
-          @click="chosenCharacter(index)"
+          @click="chosenPlanet(index)"
         >
-          {{ character.name }}
+          {{ planet.name }}
         </li>
       </ul>
     </div>
-    <div v-if="characters" class="character">
-      <h3>{{ characters[indexOfCharacter].name }}</h3>
+    <div v-if="planets" class="character">
+      <h3>{{ planets[indexOfPlanet].name }}</h3>
       <img :src="img" alt="image" />
     </div>
   </div>
@@ -24,40 +24,40 @@
 <script>
 // @ is an alias to /src
 import { mapState } from "vuex";
-import { actionTypes } from "@/store/modules/characters";
+import { actionTypes } from "@/store/modules/planets";
 import SdbLoading from "@/components/Loading";
 import SdbErrorMessage from "@/components/ErrorMessage";
 
 export default {
-  name: "Characters",
+  name: "Planets",
   components: {
     SdbLoading,
     SdbErrorMessage,
   },
   data() {
     return {
-      indexOfCharacter: 0,
+      indexOfPlanet: 0,
     };
   },
   computed: {
     ...mapState({
-      isLoading: (state) => state.characters.isLoading,
-      characters: (state) => state.characters.data,
-      error: (state) => state.characters.error,
+      isLoading: (state) => state.planets.isLoading,
+      planets: (state) => state.planets.data,
+      error: (state) => state.planets.error,
     }),
     img() {
-      return require(`../assets/characters/${this.indexOfCharacter + 1}.jpg`);
+      return require(`../assets/${this.indexOfPlanet + 1}.jpg`);
     },
   },
   mounted() {
-    this.updateCharacters();
+    this.updatePlanets();
   },
   methods: {
-    updateCharacters() {
-      this.$store.dispatch(actionTypes.getCharacters);
+    updatePlanets() {
+      this.$store.dispatch(actionTypes.getPlanets, { page: 1 });
     },
-    chosenCharacter(index) {
-      this.indexOfCharacter = index;
+    chosenPlanet(index) {
+      this.indexOfPlanet = index;
     },
   },
 };
@@ -78,7 +78,7 @@ li {
   cursor: pointer;
 }
 img {
-  width: 200px;
+  width: 250px;
   height: 250px;
 }
 .character {

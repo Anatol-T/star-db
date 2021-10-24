@@ -1,7 +1,7 @@
 import axios from "@/api/axios";
 
-const getPlanets = () => {
-  return axios.get(`/planets/?page=1`);
+const getPlanets = (page) => {
+  return axios.get(`/planets/?page=${page}`);
 };
 
 export default { getPlanets };
