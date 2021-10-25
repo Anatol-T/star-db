@@ -1,4 +1,4 @@
-import planetsApi from "@/api/planets";
+import starshipsApi from "@/api/starships";
 
 const state = {
   data: null,
@@ -7,45 +7,45 @@ const state = {
 };
 
 export const mutationTypes = {
-  getPlanetsStart: "[planets] Get planets start",
-  getPlanetsSuccess: "[planets] Get planets success",
-  getPlanetsFailure: "[planets] Get planets failure",
+  getStarshipsStart: "[starships] Get starships start",
+  getStarshipsSuccess: "[starships] Get starships success",
+  getStarshipsFailure: "[starships] Get starships failure",
 };
 
 export const actionTypes = {
-  getPlanets: "[planets] Get planets",
+  getStarships: "[starships] Get starships",
 };
 
 const mutations = {
-  [mutationTypes.getPlanetsStart](state) {
+  [mutationTypes.getStarshipsStart](state) {
     state.isLoading = true;
     state.data = null;
   },
-  [mutationTypes.getPlanetsSuccess](state, payload) {
+  [mutationTypes.getStarshipsSuccess](state, payload) {
     state.isLoading = false;
     state.data = payload;
   },
-  [mutationTypes.getPlanetsFailure](state) {
+  [mutationTypes.getStarshipsFailure](state) {
     state.isLoading = false;
     state.error = true;
   },
 };
 
 const actions = {
-  [actionTypes.getPlanets](context, { page }) {
+  [actionTypes.getStarships](context, { page }) {
     return new Promise((resolve) => {
-      context.commit(mutationTypes.getPlanetsStart);
-      planetsApi
-        .getPlanets(page)
+      context.commit(mutationTypes.getStarshipsStart);
+      starshipsApi
+        .getStarships(page)
         .then((response) => {
           context.commit(
-            mutationTypes.getPlanetsSuccess,
+            mutationTypes.getStarshipsSuccess,
             response.data.results
           );
           resolve(response.data);
         })
         .catch(() => {
-          context.commit(mutationTypes.getPlanetsFailure);
+          context.commit(mutationTypes.getStarshipsFailure);
         });
     });
   },
