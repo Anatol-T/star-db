@@ -5,6 +5,12 @@
       <SdbLoading v-if="isLoading" />
       <SdbErrorMessage v-if="error" />
       <ul v-if="characters">
+        <SdbPagination
+          :total="total"
+          :limit="limit"
+          :url="baseUrl"
+          :current-page="currentPage"
+        />
         <li
           v-for="(character, index) in characters"
           :key="index"
@@ -27,16 +33,19 @@ import { mapState } from "vuex";
 import { actionTypes } from "@/store/modules/characters";
 import SdbLoading from "@/components/Loading";
 import SdbErrorMessage from "@/components/ErrorMessage";
+import SdbPagination from "@/components/Pagination";
 
 export default {
   name: "Characters",
   components: {
     SdbLoading,
     SdbErrorMessage,
+    SdbPagination,
   },
   data() {
     return {
       indexOfCharacter: 0,
+      total: 82,
     };
   },
   computed: {
@@ -48,12 +57,28 @@ export default {
     img() {
       let pic;
       try {
-        pic = require(`../assets/characters/${this.indexOfCharacter + 1}.jpg`);
+        pic = require(`../assets/characters/${
+          this.indexOfCharacter + (this.currentPage - 1) * 10 + 1
+        }.jpg`);
       } catch (error) {
         pic = require(`../assets/default.webp`);
       }
-
       return pic;
+    },
+    limit() {
+      return 10;
+    },
+    baseUrl() {
+      return this.$route.path;
+    },
+    currentPage() {
+      return Number(this.$route.query.page || "1");
+    },
+  },
+  watch: {
+    currentPage() {
+      this.updateCharacters();
+      this.indexOfCharacter = 0;
     },
   },
   mounted() {
@@ -61,7 +86,9 @@ export default {
   },
   methods: {
     updateCharacters() {
-      this.$store.dispatch(actionTypes.getCharacters);
+      this.$store.dispatch(actionTypes.getCharacters, {
+        page: this.currentPage,
+      });
     },
     chosenCharacter(index) {
       this.indexOfCharacter = index;

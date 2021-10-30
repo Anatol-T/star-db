@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       indexOfPlanet: 0,
-      total: 50,
+      total: 60,
     };
   },
   computed: {

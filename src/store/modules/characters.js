@@ -32,11 +32,11 @@ const mutations = {
 };
 
 const actions = {
-  [actionTypes.getCharacters](context) {
+  [actionTypes.getCharacters](context, { page }) {
     return new Promise((resolve) => {
       context.commit(mutationTypes.getCharactersStart);
       charactersApi
-        .getCharacters()
+        .getCharacters(page)
         .then((response) => {
           context.commit(
             mutationTypes.getCharactersSuccess,
