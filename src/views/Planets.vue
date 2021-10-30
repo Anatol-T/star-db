@@ -5,6 +5,12 @@
       <SdbLoading v-if="isLoading" />
       <SdbErrorMessage v-if="error" />
       <ul v-if="planets">
+        <SdbPagination
+          :total="total"
+          :limit="limit"
+          :url="baseUrl"
+          :current-page="currentPage"
+        />
         <li
           v-for="(planet, index) in planets"
           :key="index"
@@ -27,16 +33,19 @@ import { mapState } from "vuex";
 import { actionTypes } from "@/store/modules/planets";
 import SdbLoading from "@/components/Loading";
 import SdbErrorMessage from "@/components/ErrorMessage";
+import SdbPagination from "@/components/Pagination";
 
 export default {
   name: "Planets",
   components: {
     SdbLoading,
     SdbErrorMessage,
+    SdbPagination,
   },
   data() {
     return {
       indexOfPlanet: 0,
+      total: 50,
     };
   },
   computed: {
@@ -46,7 +55,30 @@ export default {
       error: (state) => state.planets.error,
     }),
     img() {
-      return require(`../assets/${this.indexOfPlanet + 1}.jpg`);
+      let pic;
+      try {
+        pic = require(`../assets/${
+          this.indexOfPlanet + (this.currentPage - 1) * 10 + 1
+        }.jpg`);
+      } catch (error) {
+        pic = require(`../assets/default.webp`);
+      }
+      return pic;
+    },
+    limit() {
+      return 10;
+    },
+    baseUrl() {
+      return this.$route.path;
+    },
+    currentPage() {
+      return Number(this.$route.query.page || "1");
+    },
+  },
+  watch: {
+    currentPage() {
+      this.updatePlanets();
+      this.indexOfPlanet = 0;
     },
   },
   mounted() {
@@ -54,7 +86,7 @@ export default {
   },
   methods: {
     updatePlanets() {
-      this.$store.dispatch(actionTypes.getPlanets, { page: 1 });
+      this.$store.dispatch(actionTypes.getPlanets, { page: this.currentPage });
     },
     chosenPlanet(index) {
       this.indexOfPlanet = index;

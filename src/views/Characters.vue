@@ -15,8 +15,8 @@
       </ul>
     </div>
     <div v-if="characters" class="character">
-      <h3>{{characters[indexOfCharacter].name}}</h3>
-      <img :src="img" alt="image">
+      <h3>{{ characters[indexOfCharacter].name }}</h3>
+      <img :src="img" alt="image" />
     </div>
   </div>
 </template>
@@ -46,7 +46,14 @@ export default {
       error: (state) => state.characters.error,
     }),
     img() {
-      return require(`../assets/characters/${this.indexOfCharacter + 1}.jpg`);
+      let pic;
+      try {
+        pic = require(`../assets/characters/${this.indexOfCharacter + 1}.jpg`);
+      } catch (error) {
+        pic = require(`../assets/default.webp`);
+      }
+
+      return pic;
     },
   },
   mounted() {

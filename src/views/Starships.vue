@@ -46,7 +46,14 @@ export default {
       error: (state) => state.starships.error,
     }),
     img() {
-      return require(`../assets/species/${this.indexOfStarship + 1}.jpg`);
+      let pic;
+      try {
+        pic = require(`../assets/starships/${this.indexOfStarship + 1}.jpg`);
+      } catch (error) {
+        pic = require(`../assets/default.webp`);
+      }
+
+      return pic;
     },
   },
   mounted() {
