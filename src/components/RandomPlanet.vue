@@ -49,7 +49,7 @@ export default {
       error: (state) => state.randomPlanet.error,
     }),
     img() {
-      return require(`../assets/${this.id}.jpg`);
+      return require(`../assets/planets/${this.id}.jpg`);
     },
   },
   mounted() {

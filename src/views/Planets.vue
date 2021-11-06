@@ -57,7 +57,7 @@ export default {
     img() {
       let pic;
       try {
-        pic = require(`../assets/${
+        pic = require(`../assets/planets/${
           this.indexOfPlanet + (this.currentPage - 1) * 10 + 1
         }.jpg`);
       } catch (error) {
