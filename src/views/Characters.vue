@@ -15,6 +15,7 @@
           v-for="(character, index) in characters"
           :key="index"
           @click="chosenCharacter(index)"
+          :class="{ acive: indexOfCharacter === index }"
         >
           {{ character.name }}
         </li>
@@ -22,7 +23,14 @@
     </div>
     <div v-if="characters" class="character">
       <h3>{{ characters[indexOfCharacter].name }}</h3>
-      <img :src="img" alt="image" />
+      <img :src="img" alt="image" @click="showDialog" />
+      <show-info @close="hideDialog" :open="dialogIsVisible">
+        <character-info
+          :character="characters[indexOfCharacter]"
+          @close="hideDialog"
+        />
+      </show-info>
+      <p>Click the image for more details</p>
     </div>
   </div>
 </template>
@@ -34,6 +42,8 @@ import { actionTypes } from "@/store/modules/characters";
 import SdbLoading from "@/components/Loading";
 import SdbErrorMessage from "@/components/ErrorMessage";
 import SdbPagination from "@/components/Pagination";
+import ShowInfo from "@/components/ShowInfo.vue";
+import CharacterInfo from "@/components/CharacterInfo.vue";
 
 export default {
   name: "Characters",
@@ -41,10 +51,13 @@ export default {
     SdbLoading,
     SdbErrorMessage,
     SdbPagination,
+    ShowInfo,
+    CharacterInfo,
   },
   data() {
     return {
       indexOfCharacter: 0,
+      dialogIsVisible: false,
       total: 82,
     };
   },
@@ -93,6 +106,12 @@ export default {
     chosenCharacter(index) {
       this.indexOfCharacter = index;
     },
+    showDialog() {
+      this.dialogIsVisible = true;
+    },
+    hideDialog() {
+      this.dialogIsVisible = false;
+    },
   },
 };
 </script>
@@ -117,5 +136,8 @@ img {
 }
 .character {
   min-width: 300px;
+}
+.acive {
+  color: mediumseagreen;
 }
 </style>

@@ -20,9 +20,8 @@ export default {
 
 <style scoped>
 .title {
-  font-family: jedi-outline, fantasy;
-  src: local("jedi-outline"), url("../assets/fonts/Starjout.ttf");
-  font-size: 8em;
+  font-family: "Irish Grover", cursive;
+  font-size: 10em;
 }
 .tc-yellow-400 {
   color: #ffee58 !important;
