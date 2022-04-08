@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <div class="logo">
-      <div class="title tc-yellow-400">Star</div>
+      <div class="title tc-yellow-400">STAR</div>
       <div class="subtitle">A VISUAL GUIDE</div>
-      <div class="title tc-yellow-400">wars</div>
+      <div class="title tc-yellow-400">WARS</div>
     </div>
   </div>
 </template>
@@ -21,9 +21,13 @@ export default {
 <style scoped>
 .title {
   font-family: "Irish Grover", cursive;
-  font-size: 10em;
+  font-size: 10rem;
+}
+.subtitle {
+  font-family: "Irish Grover", cursive;
+  font-size: 2rem;
 }
 .tc-yellow-400 {
-  color: #ffee58 !important;
+  color: #6958ff !important;
 }
 </style>

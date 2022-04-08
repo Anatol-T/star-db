@@ -5,7 +5,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/characters">Characters</router-link> |
       <router-link to="/planets">Planets</router-link> |
-      <router-link to="/starships">Starships</router-link>
+      <router-link to="/species">Species</router-link>
     </div>
     <router-view v-slot="slotProps">
       <transition name="route" mode="out-in">

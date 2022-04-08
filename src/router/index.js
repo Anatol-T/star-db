@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Characters from "@/views/Characters.vue";
 import Planets from "@/views/Planets.vue";
-import Starships from "@/views/Starships.vue";
+import Species from "@/views/Species.vue";
 
 const routes = [
   {
@@ -21,14 +21,14 @@ const routes = [
     component: Planets,
   },
   {
-    path: "/starships",
-    name: "starships",
-    component: Starships,
+    path: "/species",
+    name: "species",
+    component: Species,
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
 
