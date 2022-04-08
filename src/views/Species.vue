@@ -15,14 +15,19 @@
           v-for="(sp, index) in species"
           :key="index"
           @click="chosenSpecies(index)"
+          :class="{ active: indexOfSpecies === index }"
         >
           {{ sp.name }}
-        </li>t
+        </li>
       </ul>
     </div>
     <div v-if="species" class="character">
       <h3>{{ species[indexOfSpecies].name }}</h3>
-      <img :src="img" alt="image" />
+      <img :src="img" alt="image" @click="showDialog" />
+      <show-info @close="hideDialog" :open="dialogIsVisible">
+        <species-info :species="species[indexOfSpecies]" @close="hideDialog" />
+      </show-info>
+      <p>Click the image for more details</p>
     </div>
   </div>
 </template>
@@ -34,6 +39,8 @@ import { actionTypes } from "@/store/modules/species";
 import SdbLoading from "@/components/Loading";
 import SdbErrorMessage from "@/components/ErrorMessage";
 import SdbPagination from "@/components/Pagination";
+import ShowInfo from "@/components/ShowInfo";
+import SpeciesInfo from "@/components/SpeciesInfo";
 
 export default {
   name: "Species",
@@ -41,10 +48,13 @@ export default {
     SdbLoading,
     SdbErrorMessage,
     SdbPagination,
+    ShowInfo,
+    SpeciesInfo,
   },
   data() {
     return {
       indexOfSpecies: 0,
+      dialogIsVisible: false,
       total: 37,
     };
   },
@@ -93,6 +103,12 @@ export default {
     chosenSpecies(index) {
       this.indexOfSpecies = index;
     },
+    showDialog() {
+      this.dialogIsVisible = true;
+    },
+    hideDialog() {
+      this.dialogIsVisible = false;
+    },
   },
 };
 </script>
@@ -103,19 +119,27 @@ export default {
   justify-content: space-around;
   text-align: left;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
+
 li {
   margin-bottom: 10px;
   cursor: pointer;
 }
+
 img {
   width: 200px;
   height: 250px;
 }
+
 .character {
   min-width: 300px;
+}
+
+.active {
+  color: mediumseagreen;
 }
 </style>

@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  name: "ShowInfo",
   props: ["open"],
   emits: ["close"],
 };
@@ -40,7 +41,12 @@ dialog {
   border: none;
   /* animation: modal 0.3s ease-out forwards; */
 }
-
+@media screen and (max-width: 900px) {
+  dialog {
+    width: 20rem;
+    left: calc(50% - 10rem);
+  }
+}
 .modal-enter-active {
   animation: modal 0.3s ease-out;
 }

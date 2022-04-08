@@ -15,7 +15,7 @@
           v-for="(character, index) in characters"
           :key="index"
           @click="chosenCharacter(index)"
-          :class="{ acive: indexOfCharacter === index }"
+          :class="{ active: indexOfCharacter === index }"
         >
           {{ character.name }}
         </li>
@@ -137,7 +137,7 @@ img {
 .character {
   min-width: 300px;
 }
-.acive {
+.active {
   color: mediumseagreen;
 }
 </style>
