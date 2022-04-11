@@ -8,7 +8,6 @@
     <p class="block-element">Height: &nbsp; {{ character.height }};</p>
     <p class="block-element">Eye color: &nbsp; {{ character.eye_color }};</p>
   </div>
-  <button @click="$emit('close')" class="btn btn-primary">Close it!</button>
 </template>
 <script>
 export default {
@@ -19,7 +18,6 @@ export default {
       required: true,
     },
   },
-  emits: ["close"],
 };
 </script>
 

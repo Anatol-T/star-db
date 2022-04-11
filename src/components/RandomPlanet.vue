@@ -3,20 +3,20 @@
     <SdbLoading v-if="isLoading" />
     <SdbErrorMessage v-if="error" />
     <div v-if="randomPlanet" class="random-planet">
-      <img className="planet-image" :src="img" alt="planet" />
+      <img class="planet-image" :src="img" alt="planet" />
       <div>
         <h4>{{ randomPlanet.name }}</h4>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <span className="term">Population</span>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <span class="term">Population</span>
             <span>{{ randomPlanet.population }}</span>
           </li>
-          <li className="list-group-item">
-            <span className="term">Rotation Period</span>
+          <li class="list-group-item">
+            <span class="term">Rotation Period</span>
             <span>{{ randomPlanet.rotation_period }}</span>
           </li>
-          <li className="list-group-item">
-            <span className="term">Diameter</span>
+          <li class="list-group-item">
+            <span class="term">Diameter</span>
             <span>{{ randomPlanet.diameter }}</span>
           </li>
         </ul>
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       id: 1,
+      interval: null,
     };
   },
   computed: {
@@ -54,7 +55,7 @@ export default {
   },
   mounted() {
     this.updatePlanet();
-    setInterval(this.updatePlanet, 10000);
+    this.interval = setInterval(this.updatePlanet, 10000);
   },
   methods: {
     updatePlanet() {
@@ -75,7 +76,14 @@ export default {
   border: 1px solid #444;
   margin-bottom: 1rem;
 }
-
+@media screen and (max-width: 425px) {
+  .max-h {
+    height: 380px;
+  }
+  .random-planet {
+    display: block;
+  }
+}
 .random-planet .planet-image {
   width: 150px;
   height: 150px;

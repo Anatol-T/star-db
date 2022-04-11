@@ -3,6 +3,7 @@
   <transition name="modal">
     <dialog open v-if="open">
       <slot></slot>
+      <button @click="$emit('close')" class="btn btn-primary">Close it!</button>
     </dialog>
   </transition>
 </template>
@@ -41,7 +42,7 @@ dialog {
   border: none;
   /* animation: modal 0.3s ease-out forwards; */
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 767px) {
   dialog {
     width: 20rem;
     left: calc(50% - 10rem);

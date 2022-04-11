@@ -15,6 +15,7 @@
           v-for="(planet, index) in planets"
           :key="index"
           @click="chosenPlanet(index)"
+          :class="{ active: indexOfPlanet === index }"
         >
           {{ planet.name }}
         </li>
@@ -22,7 +23,11 @@
     </div>
     <div v-if="planets" class="character">
       <h3>{{ planets[indexOfPlanet].name }}</h3>
-      <img :src="img" alt="image" />
+      <img :src="img" alt="image" @click="showDialog" />
+      <show-info @close="hideDialog" :open="dialogIsVisible">
+        <planet-info :planet="planets[indexOfPlanet]" @close="hideDialog" />
+      </show-info>
+      <p>Click the image for more details</p>
     </div>
   </div>
 </template>
@@ -34,6 +39,8 @@ import { actionTypes } from "@/store/modules/planets";
 import SdbLoading from "@/components/Loading";
 import SdbErrorMessage from "@/components/ErrorMessage";
 import SdbPagination from "@/components/Pagination";
+import ShowInfo from "@/components/ShowInfo";
+import PlanetInfo from "@/components/PlanetInfo";
 
 export default {
   name: "Planets",
@@ -41,10 +48,13 @@ export default {
     SdbLoading,
     SdbErrorMessage,
     SdbPagination,
+    ShowInfo,
+    PlanetInfo,
   },
   data() {
     return {
       indexOfPlanet: 0,
+      dialogIsVisible: false,
       total: 60,
     };
   },
@@ -91,6 +101,12 @@ export default {
     chosenPlanet(index) {
       this.indexOfPlanet = index;
     },
+    showDialog() {
+      this.dialogIsVisible = true;
+    },
+    hideDialog() {
+      this.dialogIsVisible = false;
+    },
   },
 };
 </script>
@@ -115,5 +131,8 @@ img {
 }
 .character {
   min-width: 300px;
+}
+.active {
+  color: mediumseagreen;
 }
 </style>

@@ -8,7 +8,6 @@
     <p class="block-element">Skin color: {{ species.skin_colors }};</p>
     <p class="block-element">Hair color: {{ species.hair_colors }};</p>
   </div>
-  <button @click="$emit('close')" class="btn btn-primary">Close it!</button>
 </template>
 <script>
 export default {
@@ -19,7 +18,6 @@ export default {
       required: true,
     },
   },
-  emits: ["close"],
 };
 </script>
 
